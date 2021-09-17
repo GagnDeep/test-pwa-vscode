@@ -39,8 +39,8 @@ export async function activate(context: vscode.ExtensionContext) {
 	activateSourceControl();
 
 	// sponsors in Status Bar
-	showSponsors();
-	showGitpod();
+	// showSponsors();
+	// showGitpod();
 
 	// initialize the VSCode's state
 	initialVSCodeState();

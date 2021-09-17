@@ -1,0 +1,10 @@
+{
+  "version": "v1",
+  "packages": {
+    "@github1s/vscode-web": {
+      "signature": "475bdeabf103dd0d34261be519a1ef5a",
+      "file": true,
+      "replaced": "0.2.1"
+    }
+  }
+}

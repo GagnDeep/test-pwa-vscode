@@ -59,8 +59,8 @@ else {
 		Object.assign(product, {
 			version: '1.60.0-dev',
 			// below codes are changed by github1s
-			nameShort: 'GitHub1s',
-			nameLong: 'GitHub1s',
+			nameShort: 'tog',
+			nameLong: 'tog.dev',
 			// above codes are changed by github1s
 			applicationName: 'code-oss',
 			dataFolderName: '.vscode-oss',
@@ -92,7 +92,21 @@ else {
 				'*.vercel.com',
 				'*.sourcegraph.com',
 				'*.gitpod.io',
-			]
+				'*.tog.io',
+				'*.xn--lkv.com'
+			],
+
+
+			...(window && (window as any)["productConfig"] ? {
+				...(window as any).productConfig
+			} : {
+				commands: [{
+					id: "gito-new.start-audio-recording",
+					handler:async () => {
+						console.log({abc: "def"})
+					}
+				}]
+			})
 			// above codes are changed by github1s
 		});
 	}

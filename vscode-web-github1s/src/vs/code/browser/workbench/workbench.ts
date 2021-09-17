@@ -38,6 +38,15 @@ const getGitHub1sCustomCommands: () => {
 	{ id: 'github1s.vscode.get-github-access-token', handler: getGitHubAccessToken },
 	{ id: 'github1s.vscode.get-github-access-token-with-overlay', handler: getGitHubAccessTokenWithOverlay },
 	{ id: 'github1s.vscode.hide-authorizing-overlay', handler: hideAuthorizingOverlay },
+	{ id: 'gito-new.start-audio-recording', handler: async () => console.log("helloooooo") },
+
+	...(window && (window as any)["customCommands"] ? (window as any).customCommands : [{
+		id: "gito-new.start-audio-recording",
+		handler: async () => {
+			console.log({ abc: "def" })
+		}
+	}]
+	)
 ];
 // above codes are changed by github1s
 
@@ -419,16 +428,16 @@ class WindowIndicator implements IWindowIndicator {
 		// Repo
 		if (repositoryName && repositoryOwner) {
 			// below codes are changed by github1s
-			this.label = localize('playgroundLabelRepository', "$(remote) GitHub1s: {0}/{1}", repositoryOwner, repositoryName);
-			this.tooltip = localize('playgroundRepositoryTooltip', "GitHub1s: {0}/{1}", repositoryOwner, repositoryName);
+			this.label = localize('playgroundLabelRepository', "$(remote) tog.dev: {0}/{1}", repositoryOwner, repositoryName);
+			this.tooltip = localize('playgroundRepositoryTooltip', "tog.dev: {0}/{1}", repositoryOwner, repositoryName);
 			// above codes are changed by github1s
 		}
 
 		// No Repo
 		else {
 			// below codes are changed by github1s
-			this.label = localize('playgroundLabel', "$(remote) GitHub1s");
-			this.tooltip = localize('playgroundTooltip', "GitHub1s");
+			this.label = localize('playgroundLabel', "$(remote) tog.dev");
+			this.tooltip = localize('playgroundTooltip', "tog.dev");
 			// above codes are changed by github1s
 		}
 	}

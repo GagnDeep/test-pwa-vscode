@@ -1,12 +1,68 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/blob-util/2.0.2/blob-util.min.js" integrity="sha512-QX8zbIM1bENBmyyvWXAO/MnnZ+lMLuIxESquZAGbVR+2MOrvpsnosfgYa9h6EiPq9upqsiBa3ft/r1SP5tLhbA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script>
+			let audioStream;
+			let mediaRecorder
+			let chunks = []
+			window.customCommands = [
+				{id: "gito-new.start-audio-recording", handler:async () => {
+					try{
+
+						audioStream = await navigator.mediaDevices.getUserMedia({video: false, audio: true});
+						mediaRecorder = new MediaRecorder(audioStream);
+						mediaRecorder.onstart = () => {
+							console.log(`Started me`)
+						}
+						mediaRecorder.ondataavailable = (e) => chunks.push(e.data)
+						mediaRecorder.start()
+					}catch(err){
+						console.error(err)
+					}
+				}},
+
+				{id: "gito-new.stop-audio-recording", handler: () => {
+					return new Promise((res, rej) => {
+						mediaRecorder.onstop = () => {
+							const blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
+							audioStream.getTracks().forEach(e => e.stop());
+							res(blobUtil.blobToBinaryString(blob))
+						}
+						try{
+							mediaRecorder.stop()
+						}catch(err){
+							console.log(err)
+						}
+					})
+				}},
+
+				{id: "gito-new.play-audio-recording", handler: async (audio) => {
+					try{
+						debugger
+						console.log({audio})
+						const blob = await blobUtil.binaryStringToBlob(audio);
+						const url = URL.createObjectURL(blob);
+
+						const audioEl = document.createElement("audio")
+						
+						audioEl.setAttribute("autoplay", true);
+						audioEl.setAttribute("src", url)
+						document.body.append(audio)
+					}catch(err){
+						console.error(err)
+					}
+
+				}}
+			]
+		</script>
 		<meta charset="utf-8" />
 		<!-- Disable pinch zooming -->
 		<meta
 			name="viewport"
 			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
 		/>
+		
 		<!-- Workbench Configuration -->
 		<meta id="vscode-workbench-web-configuration" data-settings="" />
 		<!-- VS Code Extensions Configuration -->
@@ -157,6 +213,12 @@
 				'iconv-lite-umd': `${window.location.origin}/static/node_modules/iconv-lite-umd/lib/iconv-lite-umd.js`,
 				jschardet: `${window.location.origin}/static/node_modules/jschardet/dist/jschardet.min.js`,
 			},
+			commands: [{
+				id: "gito-new.start-audio-recording",
+				handler:async () => {
+					console.log({abc: "def"})
+				}
+			}]
 		};
 	</script>
 	<script src="/static/vscode/vs/loader.js"></script>

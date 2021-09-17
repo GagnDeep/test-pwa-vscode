@@ -1,0 +1,3 @@
+[submodule "extensions/gito-extension"]
+	path = extensions/gito-extension
+	url = https://github.com/wemakersdev/gito-extension.git

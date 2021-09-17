@@ -23,6 +23,7 @@
     "onView:github1s"
   ],
   "browser": "./dist/extension",
+  "main": "./dist/extension",
   "engines": {
     "vscode": "^1.48.0"
   },
